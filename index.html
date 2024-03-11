@@ -42,77 +42,80 @@
             let products = [
                 {name : "I phone 15 pro max",
                  prize : "550000",
-                 img : "https://www.cnet.com/a/img/resize/9b536fd508b7a26145722c51c12fcd9005d74699/hub/2023/09/12/17b83e4f-84dd-49d1-840e-7437d41fa1c6/screenshot-2023-09-12-at-10-38-30-am.png?auto=webp&width=1200",
+                 img : "https://i.pinimg.com/564x/2f/0f/e7/2f0fe7c232477ae11f3a60d7f4460ddb.jpg",
                  qty : "150"
                 },
                 {name : "I phone X",
                  prize : "75000",
-                 img : ""
+                 img : "https://i.pinimg.com/736x/29/51/2f/29512ffa885c0cc5832d5907b73aaee4.jpg",
                  qty : "100",
                 },
                 {name : "I phone 8 plus",
                  prize : "55000",
-                 img : ""
+                 img : "",
                  qty : "300",
                 },
                 {name : "I phone 7 plus",
                  prize : "35000",
-                 img : ""
+                 img : "",
                  qty : "250",
                 },
                 {name : "I phone 7",
                  prize : "20000",
-                 img : ""
+                 img : "",
                  qty : "100",
                 },
                 {name : "I phone Xs Max",
                  prize : "95000",
-                 img : ""
+                 img : "",
                  qty : "350",
                 },
                 {name : "Infinix note i 7",
                  prize : "25000",
-                 img : ""
+                 img : "",
                  qty : "50",
                 },
                 {name : "I phone 12 pro Max ",
                  prize : "150000",
-                 img : ""
+                 img : "",
                  qty : "300",
                 },
                 {name : "I phone 13 pro max",
                  prize : "200000",
-                 img : ""
+                 img : "",
                  qty : '50'
                 },
                 {name : "I phone 15 pro max",
                  prize : "550000",
-                 img : ""
+                 img : "",
                  qty : '150'
-                };
+                }
                 ]
 
                 let str = "";
-                products.forEach(function(data,index)){
+                products.forEach(function(data,index){
                     str = str +   `
                     
                     <div class="col-12 col-sm-6 col-md-4 col-lg-3">
             <div class="card p-2">
-                <img style="height: 300px;" src=${data.img} alt="">
+                <img style="height : 200px;" src=${data.img} alt="">
                 <h5>${data.name}</h5>
                 <p>${index}</p>
                 <h5>RS ${data.prize}</h5>
                 <h5>${data.qty}</h5>
-
                 <button class="btn btn-primary">Add To Card</button>
 
+            </div>
+              
             </div>
 
                     
                     
                     `
-                };
-
+                }
+                
+                )
+                document.querySelector('.row').innerHTML=str
                 
         </script>
     </body>
