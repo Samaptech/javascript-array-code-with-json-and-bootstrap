@@ -72,7 +72,12 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    ...
+                    <ol>
+                    
+                    </ol>
+                    <h6>
+                        total : Rs <span id="total"></span> 
+                    </h6>
                 </div>
                 
                 <div class="modal-footer">
@@ -194,12 +199,30 @@
         })
         document.querySelector('.row').innerHTML = str
         let cart = [];
+        let total = 0;
         function addToCart(index , prize){
            cart.push({name : name , prizen : prize})
-            updateCart();
+           localStorage.setItem("cart" , JSON.stringify(cart));
+           localStorage.setItem("total" , JSON.stringify(total)); 
+           updateCart();
         }
         function updateCart(){
+            let newstr = "";
+            cart = JSON.parse(localStorage.getItem("cart"));
+            total = JSON.parse(localStorage.getItem("total"));
+            if(cart == null || total == null){
+                cart = [];
+                total = 0;
+            }
             document.querySelector('.cartlen').innerHTML = cart.length;
+            document.querySelector('#total').innerHTML = total; 
+            cart.forEach((data , index)=>(
+                newstr = newstr + `
+                <li> ${'data' . name} Rs- 100 <button class="btn btn-primary ><span class="display-0.5">+</span></button>1<button class="btn btn-primary "><span class="display-0.5">-</span></button></li>`
+       
+                    
+            ))
+            document.querySelector("ol").innerHTML = newstr;
         }
         updateCart();
     </script>
