@@ -79,6 +79,7 @@
                     <h6>
                         total : Rs <span id="total"></span>
                     </h6>
+                    <button onclick="clearCart()" class="btn btn-danger" id="clearCart()">Clear Cart</button>
                 </div>
 
                 <div class="modal-footer">
@@ -202,7 +203,7 @@
         let cart = [];
         let total = 0;
         function addToCart(index, name, prize, qty) {
-            
+
             cart = JSON.parse(localStorage.getItem("cart"));
             total = JSON.parse(localStorage.getItem("total"));
             if (cart == null || total == null) {
@@ -213,7 +214,7 @@
             const existingItem = cart.find((data) => data.name == name);
             if (existingItem) {
                 existingItem.qty = existingItem.qty + 1;
-               
+
                 localStorage.setItem("cart", JSON.stringify(cart));
                 total = total + prize;
                 localStorage.setItem("total", JSON.stringify(total));
@@ -221,7 +222,7 @@
 
             }
             else {
-                cart.push({ name: name, prize: prize, qty:qty })
+                cart.push({ name: name, prize: prize, qty: qty })
                 localStorage.setItem("cart", JSON.stringify(cart));
                 total = total + prize;
                 localStorage.setItem("total", JSON.stringify(total));
@@ -241,13 +242,52 @@
             document.querySelector('#total').innerHTML = total;
             cart.forEach((data, index) => (
                 newstr = newstr + `
-                <li class="d-flex justify-content-between">${data.name} RS-${data.prize} <div class="my-1"><button class="btn btn-primary ><span class="display-0.5">+</span></button><span>${data.qty}</span><button class="btn btn-primary "><span class="display-0.5">-</span></button></div></li>
+                <li class="d-flex justify-content-between">${data.name} RS-${data.prize} <div class="my-1"><button class="btn btn-primary ><span class="display-0.5" onClick="increment(${index} ,${data.prize}, ${data.qty} )">+</span></button><span>${data.qty}</span><button class="btn btn-primary "><span class="display-0.5" onClick="decrement(${index} ,${data.prize}, ${data.qty})">-</span></button></div></li>
                     `
 
             ));
             document.querySelector('ol').innerHTML = newstr;
         }
-        updateCart();
+        function increment(index, prize, qty) {
+            cart = JSON.parse(localStorage.getItem("cart"));
+            total = JSON.parse(localStorage.getItem("total"));
+            cart[index].qty = cart[index].qty + 1;
+            total = total + cart[index].prize;
+            localStorage.setItem("cart", JSON.stringify(cart));
+            localStorage.setItem("total", JSON.stringify(total));
+            updateCart();
+        }
+        function decrement(index, prize, qty) {
+            cart = JSON.parse(localStorage.getItem("cart"));
+            total = JSON.parse(localStorage.getItem("total"));
+            if (cart[index].qty == 1) {
+                total = total - cart[index].prize;
+                cart.splice(index , 1);
+                localStorage.setItem("cart", JSON.stringify(cart));
+                localStorage.setItem("total", JSON.stringify(total));
+                updateCart();
+
+
+            }
+            else {
+                cart[index].qty = cart[index].qty - 1;
+                total = total - cart[index].prize;
+                localStorage.setItem("cart", JSON.stringify(cart));
+                localStorage.setItem("total", JSON.stringify(total));
+                updateCart();
+
+            }
+          
+        }
+    
+        function clearCart(){
+            localStorage.removeItem("cart");
+            localStorage.removeItem("total");
+            updateCart();
+     
+        }
+       
+
     </script>
 </body>
 
