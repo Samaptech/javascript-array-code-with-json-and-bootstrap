@@ -79,7 +79,7 @@
                     <h6>
                         total : Rs <span id="total"></span>
                     </h6>
-                    <button onclick="clearCart()" class="btn btn-danger" id="clearCart()">Clear Cart</button>
+                    <button onclick="clearCart()" class="btn btn-danger" id="clearCart">Clear Cart</button>
                 </div>
 
                 <div class="modal-footer">
@@ -232,12 +232,21 @@
         }
         function updateCart() {
             let newstr = "";
+            cart = JSON.parse(localStorage.getItem("cart"));
+            total = JSON.parse(localStorage.getItem("total"));
 
             if (cart == null || total == null) {
                 cart = [];
                 total = 0;
 
             }
+            if(cart.length == 0){
+                document.getElementById("clearCart").style.display='none';
+            }
+            else{
+                document.getElementById("clearCart").style.display='block';
+            }
+
             document.querySelector('.cartlen').innerHTML = cart.length;
             document.querySelector('#total').innerHTML = total;
             cart.forEach((data, index) => (
@@ -248,9 +257,18 @@
             ));
             document.querySelector('ol').innerHTML = newstr;
         }
+
+        updateCart();
+
+
         function increment(index, prize, qty) {
             cart = JSON.parse(localStorage.getItem("cart"));
             total = JSON.parse(localStorage.getItem("total"));
+            if (cart == null || total == null) {
+                cart = [];
+                total = 0;
+
+            }
             cart[index].qty = cart[index].qty + 1;
             total = total + cart[index].prize;
             localStorage.setItem("cart", JSON.stringify(cart));
@@ -260,6 +278,11 @@
         function decrement(index, prize, qty) {
             cart = JSON.parse(localStorage.getItem("cart"));
             total = JSON.parse(localStorage.getItem("total"));
+            if (cart == null || total == null) {
+                cart = [];
+                total = 0;
+
+            }
             if (cart[index].qty == 1) {
                 total = total - cart[index].prize;
                 cart.splice(index , 1);
